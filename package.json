@@ -8,9 +8,17 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.ts",
-    "build":"tsc",
+    "build": "tsc && node copy-dir.js",
+    "ts.check":"tsc --project tsconfig.json",
+    "add-build":"git add dist",
     "test": "echo \"Error: no test specified\" && exit 1"
+
   },
+  "pre-commit":[
+    "ts.check",
+    "build",
+    "add-build"
+  ],
   "dependencies": {
     "body-parser": "^2.2.0",
     "cloudinary": "^2.7.0",
@@ -28,7 +36,9 @@
   "devDependencies": {
     "@types/express": "^5.0.3",
     "@types/node": "^24.0.10",
+    "fs-extra": "^11.3.0",
     "nodemon": "^3.1.10",
+    "pre-commit": "^1.2.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }
