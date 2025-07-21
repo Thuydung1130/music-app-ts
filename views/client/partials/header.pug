@@ -1,15 +1,17 @@
 header.header
   .container
-    .row.align-items-center
-      .col-3
-        .inner-logo
-          a(href="/")
-            img(src="/images/logo.svg", alt="Logo")
-      .col-5
+    //.row.align-items-center
+    .inner-header
+      //.col-12
+      .head-left
+        .box-move 
+          <i class="fa-solid fa-arrow-left-long"></i>
+          <i class="fa-solid fa-arrow-right-long"></i>
         .box-search
             form(action="/sreach/result" 
             method="GET")
-              div(class="form-group d-flex mb-0")
+              div(class="form-group d-flex mb-0 search")
+                  <i class="fa-solid fa-magnifying-glass"></i>
                   input(
                       type="text"
                       placeholder="Nhập từ khóa..."
@@ -17,7 +19,7 @@ header.header
                       name="keyword"
                       value=keyword
                   )
-                  button(type="submit" class="btn btn-primary") Tìm
+                  //button(type="submit" class="btn btn-primary") Tìm
             .inner-suggest
               .inner-list
                   //- a(href="/songs/detail/:slugSong" class="inner-item")
@@ -36,12 +38,12 @@ header.header
                   //-         .inner-singer
                   //-             i(class="fa-solid fa-microphone-lines")
                   //-             | Thành Đạt
-      .col-4
-        .inner-menu
-          ul
-            li
-              a(href="/") Trang chủ
-            li
-              a(href="/topics") Chủ đề
-            li
-              a(href="/favorite-songs") <i class="fa-solid fa-heart"></i> Yêu thích
+    
+      .inner-menu
+        ul
+          li
+            a(href="/") Trang chủ
+          li
+            a(href="/topics") Chủ đề
+          li
+            a(href="/favorite-songs") <i class="fa-solid fa-heart"></i> Yêu thích

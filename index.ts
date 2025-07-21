@@ -6,6 +6,7 @@ import *as database from "./config/database"
 import adminRoutes from "./routes/admin/index.route";
 import clientRoutes from "./routes/client/index.route";
 import { systemConfig } from "./config/config";
+const cookieParser = require('cookie-parser');
 import path from "path"
 
 dotenv.config()
@@ -24,6 +25,11 @@ app.use(methodOverride("_method"));
 
 app.use(express.static(`${__dirname}/public`));
 
+
+// Sử dụng cookie-parser đúng cách
+app.use(cookieParser("JHGJKLKLGFLJK"));
+
+
 app.set("views",`${__dirname}/views`);
 app.set("view engine","pug");
 
@@ -38,7 +44,7 @@ app.use(
 app.locals.prefixAdmin=systemConfig.prefixAdmin;
 
 //client route
-clientRoutes(app);
+clientRoutes(app)
 //admin route
 adminRoutes(app)
 

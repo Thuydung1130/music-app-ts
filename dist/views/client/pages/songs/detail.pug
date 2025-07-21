@@ -1,7 +1,48 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 
+
+block styles
+  link(rel="stylesheet", href="/css/song.css")
 block main
+    .inner-song 
+        .songBlock-1 
+            div(class="contentleft inner-songInfo")
+                div(class="song-img img" ) 
+                    img(src=song.avatar data-id=song.id )
+                    .inner-play
+                        div(class="play play-img") 
+                            <i class="fa-solid fa-play "></i>
+                h2 #{song.title}
+                 
+                p 
+                    a(href="/") #{singer.fullName}
+                .playAll 
+                    <i class="fa-solid fa-play"></i>
+                    span PHÁT TẤT CẢ
+                .action 
+                    .heart 
+                        <i class="fa-regular fa-heart"></i>
+                    .other 
+                        <i class="fa-solid fa-ellipsis"></i>
+            .contenRight 
+                ul 
+                    li 
+                        .right-item 
+                            span Bài Hát
+                            span Thời Gian
+                    li 
+                        .right-item  
+                            .item-left 
+                                img(src=song.avatar, alt=""  width=30 height=30)
+                                .item-text 
+                                    span #{song.title}
+                                    p 
+                                        a(href="/") #{singer.fullName}
+
+                            span 05:05
+
+
     .singer-detail
         .container.my-3
             .row

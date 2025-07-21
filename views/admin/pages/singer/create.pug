@@ -1,0 +1,64 @@
+extends ../../layouts/default.pug
+
+block main
+  if(role.permissions.includes("singers_create"))
+    h1(class="mb-4") #{pageTitle}
+  
+    form(
+      action=`/${prefixAdmin}/singers/create`,
+      method="POST",
+      enctype="multipart/form-data"
+    )
+      div(class="form-group")
+        label(for="fullName") Tên
+        input(
+          type="text",
+          class="form-control",
+          id="fullName",
+          name="fullName",
+          required
+        )
+      
+          
+      
+      //- Upload ảnh đại diện
+      div(class="form-group " upload-image)
+        label(for="avatar") Ảnh
+        //- Upload ảnh
+  
+        input(type="file" class="form-control-file" id="avatar" name="avatar" accept="image/*" upload-image-input)//- Hiển thị ảnh preview
+        img(src="" class="image-preview" upload-image-preview)
+  
+      
+      
+      
+      //- Trạng thái hoạt động
+      div(class="form-group form-check form-check-inline")
+        input(
+          type="radio"
+          class="form-check-input"
+          id="statusActive"
+          name="status"
+          value="active"
+          checked
+        )
+        label(for="statusActive" class="form-check-label") Hoạt động
+  
+      div(class="form-group form-check form-check-inline")
+        input(
+          type="radio"
+          class="form-check-input"
+          id="statusInactive"
+          name="status"
+          value="inactive"
+        )
+        label(for="statusInactive" class="form-check-label") Dừng hoạt động
+  
+      //- Nút submit
+      div(class="form-group")
+        button(type="submit" class="btn btn-primary") Tạo mới
+  
+  
+  
+  
+  

@@ -134,3 +134,14 @@ export const editPatch = async (req: Request, res: Response) => {
   res.redirect(`/${systemConfig.prefixAdmin}/songs/edit/${id}`);
 
 }
+
+export const deleteSong = async (req: Request, res: Response) =>{
+    const id = req.params.id;
+    await Song.updateOne(
+        { _id: id },
+        {
+            deleted: true,
+            
+        });
+    res.redirect(`/${systemConfig.prefixAdmin}/songs`);
+}

@@ -2,3 +2,57 @@ extends ../../layouts/default.pug
 
 block main 
     h1 Trang tổng quan
+    .row.mt-4 
+        .col-12 
+            .card.md-4
+                .card-header Thông tin tài khoản 
+                .card-body 
+                    if(user.avatar)
+                        img(
+                            src=user.avatar 
+                            style="height: 100px; margin-bottom:15px;"
+                        )
+                    if(user.fullName)
+                        p Họ tên: <b>#{user.fullName}</b>
+                    if(user.email)
+                        p Họ tên: <b>#{user.email}</b>
+                    if(user.phone)
+                        p Họ tên: <b>#{user.phone}</b>
+                    if(role.title)
+                        p Họ tên: <b>#{role.title}</b>
+    .row 
+        .col-6 
+            .card.mb-4 
+                .card-header Topics
+                .card-body 
+                    p Số lượng: <b>#{statstic.Topics.total}</b>
+                    p Hoạt động: <b>#{statstic.Topics.active}</b>
+                    p Sản phẩm: <b>#{statstic.Topics.inactive}</b>
+        .col-6 
+            .card.mb-4 
+                .card-header Songs
+                .card-body 
+                    p Số lượng: <b>#{statstic.Songs.total}</b>
+                    p Hoạt động: <b>#{statstic.Songs.active}</b>
+                    p Sản phẩm: <b>#{statstic.Songs.inactive}</b>
+        .col-6 
+            .card.mb-4 
+                .card-header Singers
+                .card-body 
+                    p Số lượng: <b>#{statstic.Singers.total}</b>
+                    p Hoạt động: <b>#{statstic.Singers.active}</b>
+                    p Sản phẩm: <b>#{statstic.Singers.inactive}</b>
+        .col-6 
+            .card.mb-4 
+                .card-header Accounts 
+                .card-body 
+                    p Số lượng: <b>#{statstic.Accounts.total}</b>
+                    p Hoạt động: <b>#{statstic.Accounts.active}</b>
+                    p Sản phẩm: <b>#{statstic.Accounts.inactive}</b>
+        //- .col-6 
+        //-     .card.mb-4 
+        //-         .card-header Tài khoản Client
+        //-         .card-body 
+        //-             p Số lượng: <b>#{statstic.user.total}</b>
+        //-             p Hoạt động: <b>#{statstic.user.active}</b>
+        //-             p Sản phẩm: <b>#{statstic.user.inactive}</b>

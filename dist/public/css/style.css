@@ -2,22 +2,93 @@ html{
     height: 100%;
 }
 body{
+    height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+   font-family: "Inter", sans-serif;
+}
+.body{
+    display: flex;
+    height: calc(100vh - 90px);
+}
+
+.body .sider{
+    width: 15%;
+    background-color: #231B2E;
+    height: 100vh;
+    overflow-y: auto;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+.body .header{
+    background-color: #170F23;
+    
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+.body .content{
+    flex: 1;
     display: flex;
     flex-direction: column;
-    height: 100%;
 }
-main{
+.body .main{
+    padding-top: 70px;
     flex: 1;
+    overflow-y: auto;
+    height: 100vh - 70px;
+    background-color: #170F23;
 }
 /* Header */
 .header{
-    border-bottom: 1px solid #ddd;
+    position: fixed;
     padding: 10px 0;
+    height: 70px;
+    opacity: 0.99;
+    width: 85%;
+    display: flex;
+    right: 0;
+    z-index: 100;
+    align-items: center;
 }
-.header .inner-logo img{
-    max-height: 50px;
-    max-width: 100%;
+.header .inner-header{
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+.header .inner-header .head-left{
+    display: flex;
+    align-items: center;
+    width: 45%;
+    justify-content: space-between;
+}
+.header .box-move{
+    width: 13%;
+    display: flex;
+    color: #5C5765;
+    justify-content: space-between;
+}
+
+.header .box-move i{
+    font-size: 20px;
+    
+}
+.header .box-search{
+    width: 80%;
+    
+}
+.header .box-search .search{
+    display: flex;
+    color: #fff;
+    align-items: center;
+    background-color: #2F2739;
+    padding: 0 15px;
+    border-radius: 50px;
+}
+.header .box-search input{
+    border-color: #2F2739;
+    background-color: #2F2739;
+    color: #fff;
+}
+
 .header .inner-menu > ul {
     list-style: none;
     padding: 0;
@@ -41,6 +112,229 @@ main{
 }
 /* Footer */
 
+/* sider */
+
+.sider .inner-logo img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.body .sider .inner-logo{
+    width: 200px;
+    height:165px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    
+   
+    overflow: hidden;
+    position: relative;
+}
+.body .sider .inner-logo img{
+    width: 110%;        /* Zoom ảnh lên */
+  height: 110%;
+  object-fit: cover;  /* Giúp ảnh giữ tỷ lệ */
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.5); /* Zoom 150% và giữ tâm */
+  transform-origin: center;
+  object-fit: cover;
+}
+.body .sider .inner-menu ul{
+    list-style-type: none;
+    padding-left: 0;
+    
+}
+.body .sider .inner-menu ul li a{
+    display: inline-block;
+    height: 47px;
+    color: #F8FFFF;
+    width: 100%;
+    padding: 0 30px;
+
+}
+.body .sider .inner-menu ul li a:hover{
+    background-color: #393243;
+    text-decoration: none;
+}
+.body .sider .inner-menu .inner-item{
+    display: flex;
+    height: 100%;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 400;
+}
+.body .sider .inner-menu .inner-item i{
+    margin-right: 17px;
+    color: #D3D1D5;
+    font-size: 18px;
+}
+/* sider */
+
+/* sing-player */
+body .sing{
+    height: 90px;
+  background-color: #130C1C;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.sing .sing-left{
+    height: 100%;
+}
+.sing .sing-left .sing-info{
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+.sing .sing-left .sing-info img{
+    height: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.sing .sing-left .pre{
+    margin-left: 20px;
+    
+}
+.sing .sing-left .sing-info .main-title{
+    font-weight: 500;
+    font-size: 15px;
+    
+}
+.sing .author{
+    line-height: 1;
+}
+.sing .sing-left .sing-info a{
+    color: #7C7981;
+    font-size: 13px;
+}
+.sing .sing-main{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+.sing .sing-play{
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    width: 126px;
+    justify-content: space-between;
+}
+.sing .sing-play i{
+    
+
+    font-size: 20px;
+    cursor: pointer;
+}
+.sing  .pre{
+     padding: 8px;
+    
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sing .sing-play .pre i{
+    font-size: 17px;
+}
+.sing  .pre:hover{
+    background-color: #2B2533;
+}
+ .play{
+    width: 40px;
+    height: 40px;
+    border: 1.5px solid #fff;
+    border-radius: 50%;
+    position: relative;
+}
+ .play i{
+    position: absolute;
+    font-size: 17px;
+    
+    top: 50%;
+    left: 50%;
+    transform: translate(-40%, -50%);
+    
+
+}
+.sing .process-bar{
+    display: flex;
+    align-items: center;
+   font-size: 13px;
+    color: #7F7B84;
+}
+.sing .process-bar .process{
+    width: 500px;
+    height: 4px;
+    border-radius: 5px;
+    background-color: #595460;
+    margin: 0 8px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+}
+.sing .process-bar .process .process-filled {
+    display: block;
+  height: 100%;
+  background-color: #FFFFFF;
+  width: 0%;
+  border-radius: 5px;
+  transition: width 0.2s linear;
+  z-index: 2;
+}
+.sing .sing-right{
+    display: flex;
+    align-items: center;
+    width: 150px;
+   
+}
+
+.sing .sing-right .volume{
+    width: 70px;
+    height: 4px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+.sing .sing-right .li{
+    height: 36px;
+    width: 2px;
+    background-color: #2B2533;
+    margin: 0 10px;
+}
+.sing .sing-right .fa-music{
+    padding: 7px;
+    display: block;
+    font-size: 15px;
+    border-radius: 5px;
+    background-color: #2B2533;
+}
+.sing .sing-right .fa-music:hover{
+    background-color: #3D3844;
+}
+.sing .sing-right .fa-volume-low{
+    padding: 9px;
+    display: block;
+    font-size: 15px;
+    border-radius: 50%;
+    
+}
+.sing .sing-right .fa-volume-low:hover{
+    background-color: #2B2533;
+}
+/* sing-player */
+
 
 /* box-head */
 .box-head{
@@ -50,6 +344,9 @@ main{
     color: green;
 }
 /* box-head */
+
+
+
 
 /* song item */
 .song-item{

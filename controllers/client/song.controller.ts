@@ -149,3 +149,26 @@ export const listen = async (req: Request, res: Response) => {
     listen: songNew.listen
   });
 };
+
+// [PATCH] /songs/play/:idSong
+export const audio = async (req: Request, res: Response) =>{
+  //console.log("ok")
+  const idSong: string = req.params.idSong;
+
+  const song = await Song.findOne({
+    _id: idSong
+  });
+  //console.log("ok");
+  res.json({
+    audio:song.audio
+  });
+  // console.log("chay")
+  // const song = await Song.findById(req.params.idSong); // từ MongoDB chẳng hạn
+  
+  // if (!song)  res.json({ message: 'Không tìm thấy bài hát' });
+  
+  // res.json({
+  //   audio: song.audio,   // ví dụ: /media/song123.mp3
+    
+  // });
+}

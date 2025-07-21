@@ -1,0 +1,32 @@
+.sing
+     
+    .sing-left 
+        .sing-info 
+            img(src="", alt="" id="audio-thumbnail")
+            .sing-title 
+                .main-title 
+                .author
+                    a(href="") 
+            .pre
+                <i class="fa-regular fa-heart"></i>
+    .sing-main 
+        .sing-play  
+            .pre             
+                <i class="fa-solid fa-backward-step "></i>
+            
+            .play 
+                <i class="fa-solid fa-play "></i> 
+            .pre
+                <i class="fa-solid fa-forward-step "></i>
+        .process-bar 
+            span(id="current-time") 02:51
+            span(class="process")
+                span(class="process-filled")
+                <audio id="audio-player" controls style="display: none;"></audio>
+            span(id="duration") 03:55
+    
+    .sing-right
+        <i class="fa-solid fa-volume-low"></i>
+        span(class="volume hv")
+        span(class="li")
+        <i class="fa-solid fa-music"></i>

@@ -54,4 +54,5 @@ router.patch("/edit/:id", upload.fields([
     { name: "avatar", maxCount: 1 },
     { name: "audio", maxCount: 1 }
 ]), uploadCloud.uploadFields, controller.editPatch);
+router.delete("/delete/:id", controller.deleteSong);
 exports.songRoutes = router;

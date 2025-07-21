@@ -32,6 +32,8 @@ const uploadToCloudinary = async (buffer) => {
 };
 const uploadSingle = async (req, res, next) => {
     try {
+        if (!req["file"])
+            return next();
         const result = await uploadToCloudinary(req["file"].buffer);
         req.body[req["file"].fieldname] = result;
     }

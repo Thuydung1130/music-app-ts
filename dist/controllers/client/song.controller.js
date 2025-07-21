@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.listen = exports.favorite = exports.like = exports.detail = exports.list = void 0;
+exports.audio = exports.listen = exports.favorite = exports.like = exports.detail = exports.list = void 0;
 const topic_model_1 = __importDefault(require("../../models/topic.model"));
 const song_model_1 = __importDefault(require("../../models/song.model"));
 const singer_model_1 = __importDefault(require("../../models/singer.model"));
@@ -125,3 +125,13 @@ const listen = async (req, res) => {
     });
 };
 exports.listen = listen;
+const audio = async (req, res) => {
+    const idSong = req.params.idSong;
+    const song = await song_model_1.default.findOne({
+        _id: idSong
+    });
+    res.json({
+        audio: song.audio
+    });
+};
+exports.audio = audio;

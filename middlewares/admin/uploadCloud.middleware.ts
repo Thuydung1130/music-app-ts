@@ -34,7 +34,8 @@ const uploadToCloudinary = async (buffer: any) => {
 
 export const uploadSingle = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    
+    if (!req["file"]) return next(); // Không có ảnh thì bỏ qua
+
     const result = await uploadToCloudinary(req["file"].buffer);
     req.body[req["file"].fieldname]=result
     

@@ -9,12 +9,11 @@
   "scripts": {
     "start": "nodemon index.ts",
     "build": "tsc && node copy-dir.js",
-    "ts.check":"tsc --project tsconfig.json",
-    "add-build":"git add dist",
+    "ts.check": "tsc --project tsconfig.json",
+    "add-build": "git add dist",
     "test": "echo \"Error: no test specified\" && exit 1"
-
   },
-  "pre-commit":[
+  "pre-commit": [
     "ts.check",
     "build",
     "add-build"
@@ -22,8 +21,10 @@
   "dependencies": {
     "body-parser": "^2.2.0",
     "cloudinary": "^2.7.0",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^17.0.1",
     "express": "^5.1.0",
+    "md5": "^2.3.0",
     "method-override": "^3.0.0",
     "mongoose": "^8.16.1",
     "mongoose-slug-updater": "^3.3.0",
