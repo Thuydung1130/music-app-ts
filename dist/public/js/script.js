@@ -1,8 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("ok")
     attachSongClickEvents();
+    attachLikeAndFavoriteEvents();
+
+
+    // Hàm load và chèn thêm CSS từ tài liệu mới
+    const loadStylesheets = (doc) => {
+        const newLinks = doc.querySelectorAll('link[rel="stylesheet"]');
+        newLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (!document.querySelector(`link[href="${href}"]`)) {
+                const newLink = document.createElement('link');
+                newLink.rel = 'stylesheet';
+                newLink.href = href;
+                document.head.appendChild(newLink);
+            }
+        });
+    };
+   
     document.body.addEventListener('click', async (e) => {
         const link = e.target.closest('a');
-
+        
         // Chỉ xử lý nếu là link nội bộ
         if (link && link.href.startsWith(window.location.origin)) {
             // Nếu là file .mp3 hoặc .jpg thì không can thiệp
@@ -16,12 +34,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, 'text/html');
-                const newContent = doc.querySelector('.inner-main');
 
+                loadStylesheets(doc);//load css moi
+                const newContent = doc.querySelector('.inner-main');
                 if (newContent) {
                     document.querySelector('.inner-main').innerHTML = newContent.innerHTML;
                     history.pushState({}, '', link.href);
                     attachSongClickEvents();
+                    attachLikeAndFavoriteEvents();
                 }
             } catch (err) {
                 console.error("Không thể tải trang:", err);
@@ -36,97 +56,96 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
-        const newContent = doc.querySelector('.inner-main');
 
+        loadStylesheets(doc);
+        const newContent = doc.querySelector('.inner-main');
+        
         if (newContent) {
             document.querySelector('.inner-main').innerHTML = newContent.innerHTML;
             attachSongClickEvents();
+            console.log("ok")
+            attachLikeAndFavoriteEvents();
+             
         }
     });
 });
 
 
 
-//Aplayer
-const aplayer = document.querySelector("#aplayer")
-if (aplayer) {
-    let dataSong = aplayer.getAttribute("data-song");
-    dataSong = JSON.parse(dataSong)
+// function initAPlayer() {
+//     const aplayer = document.querySelector("#aplayer");
+//     if (aplayer) {
+//         let dataSong = aplayer.getAttribute("data-song");
+//         dataSong = JSON.parse(dataSong);
 
-    let dataSinger = aplayer.getAttribute("data-singer");
-    dataSinger = JSON.parse(dataSinger)
-    const ap = new APlayer({
-        container: aplayer,
-        lrcType: 1,
-        audio: [{
-            name: dataSong.title,
-            artist: dataSinger.fullName,
-            url: dataSong.audio,
-            cover: dataSong.avatar,
+//         let dataSinger = aplayer.getAttribute("data-singer");
+//         dataSinger = JSON.parse(dataSinger);
 
-            lrc: dataSong.lyrics
-        }],
-        autoplay: true
-    });
-    const avatar = document.querySelector(".singer-detail .inner-avatar");
+//         const ap = new APlayer({
+//             container: aplayer,
+//             lrcType: 1,
+//             audio: [{
+//                 name: dataSong.title,
+//                 artist: dataSinger.fullName,
+//                 url: dataSong.audio,
+//                 cover: dataSong.avatar,
+//                 lrc: dataSong.lyrics
+//             }],
+//             autoplay: true
+//         });
 
+//         const avatar = document.querySelector(".singer-detail .inner-avatar");
 
-    ap.on('play', function () {
-        avatar.style.animationPlayState = "running";
-    })
+//         ap.on('play', function () {
+//             avatar.style.animationPlayState = "running";
+//         });
 
-    ap.on('pause', function () {
-        avatar.style.animationPlayState = "paused";
-    })
-    ap.on('ended', function () {
+//         ap.on('pause', function () {
+//             avatar.style.animationPlayState = "paused";
+//         });
 
-        const link = `/songs/listen/${dataSong._id}`;
+//         ap.on('ended', function () {
+//             const link = `/songs/listen/${dataSong._id}`;
+//             const option = { method: "PATCH" };
 
-        const option = {
-            method: "PATCH"
-        }
-
-        fetch(link, option)
-            .then(res => res.json())
-            .then(data => {
-                const elementListenSpan = document.querySelector(".singer-detail .inner-listen span");
-                elementListenSpan.innerHTML = `${data.listen} lượt nghe`
-            })
-    })
-}
-//end aplayer
+//             fetch(link, option)
+//                 .then(res => res.json())
+//                 .then(data => {
+//                     const elementListenSpan = document.querySelector(".singer-detail .inner-listen span");
+//                     elementListenSpan.innerHTML = `${data.listen} lượt nghe`;
+//                 });
+//         });
+//     }
+// }
 
 
-//buttton like
-const buttonLike = document.querySelector("[button-like]");
-if (buttonLike) {
-    buttonLike.addEventListener("click", () => {
-        const idSong = buttonLike.getAttribute("button-like");
-        const isActive = buttonLike.classList.contains("active");
-        const typeLike = isActive ? "no" : "yes";
 
-        const link = `/songs/like/${typeLike}/${idSong}`;
 
-        const option = {
-            method: "PATCH"
-        }
+function attachLikeAndFavoriteEvents() {
+    // Like button
+    const buttonLike = document.querySelector("[button-like]");
+    if (buttonLike) {
+        console.log("ok")
+        buttonLike.addEventListener("click", () => {
+            const idSong = buttonLike.getAttribute("button-like");
+            const isActive = buttonLike.classList.contains("active");
+            const typeLike = isActive ? "no" : "yes";
 
-        fetch(link, option)
-            .then(res => res.json())
-            .then(data => {
-                const span = buttonLike.querySelector("span");
-                span.innerHTML = `${data.newLike} thich`
-                console.log(data);
+            const link = `/songs/like/${typeLike}/${idSong}`;
+            const option = { method: "PATCH" };
 
-                buttonLike.classList.toggle("active")
-            })
-    })
-}
-//buttton like
+            fetch(link, option)
+                .then(res => res.json())
+                .then(data => {
+                    const span = buttonLike.querySelector("span");
+                    span.innerHTML = `${data.newLike} thich`;
+                    buttonLike.classList.toggle("active");
+                });
+        });
+    }
 
-//button-favorite
-const listButtonFavorite = document.querySelectorAll("[button-favorite]");
-if (listButtonFavorite.length > 0) {
+    // Favorite buttons
+    const listButtonFavorite = document.querySelectorAll("[button-favorite]");
     listButtonFavorite.forEach((buttonFavorite) => {
         buttonFavorite.addEventListener("click", () => {
             const idSong = buttonFavorite.getAttribute("button-favorite");
@@ -134,20 +153,17 @@ if (listButtonFavorite.length > 0) {
             const typeFavorite = isActive ? "no" : "yes";
 
             const link = `/songs/favorite/${typeFavorite}/${idSong}`;
-            const option = {
-                method: "PATCH"
-            }
+            const option = { method: "PATCH" };
 
             fetch(link, option)
                 .then(res => res.json())
-                .then(data => {
-                    buttonFavorite.classList.toggle("active")
-                })
-        })
-    })
-
+                .then(() => {
+                    buttonFavorite.classList.toggle("active");
+                });
+        });
+    });
 }
-//end
+
 
 ///sreach suggest
 const boxSearch = document.querySelector(".box-search");
@@ -163,13 +179,14 @@ if (boxSearch) {
             .then(res => res.json())
             .then(data => {
                 const songs = data.songs;
+                console.log(songs)
                 if (songs.length > 0) {
                     boxSuggest.classList.add("show");
                     const htmls = songs.map(song => {
                         return `
                             <a class="inner-item" href="/songs/detail/${song.slug}">
                               <div class="inner-image">
-                                <img src=${song.avatar}/>
+                                <img src="${song.avatar}"/>
                               </div>
                               <div class="inner-info">
                                 <div class="inner-title">${song.title}</div>
@@ -204,6 +221,7 @@ function attachSongClickEvents() {
             const imgsrc = Img.getAttribute("src");
 
             const audio = document.getElementById('audio-player');
+            
             const thumbnail = document.getElementById('audio-thumbnail');
             const singTitle = document.querySelector(".sing .sing-title .main-title");
             const singAuthor = document.querySelector(".sing .sing-title .author a");
@@ -220,6 +238,7 @@ function attachSongClickEvents() {
                 .then(data => {
                     if (audio) {
                         audio.src = data.audio;
+                        audio.setAttribute('data-id', data.id);                       
                         audio.load();
                         audio.addEventListener('canplay', () => {
                             audio.play();
@@ -234,7 +253,7 @@ function attachSongClickEvents() {
 
 document.addEventListener("DOMContentLoaded", () => {
     // --- toàn bộ code bạn dán ở trên ---
-    
+
 
 
     //play-radio
@@ -273,6 +292,29 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     //play-radio
+
+    // Khi bài hát kết thúc
+    audio.addEventListener('ended', () => {
+        const songId = audio.getAttribute('data-id'); // Giả sử bạn gán sẵn ID bài hát
+
+        // Gửi API cập nhật lượt nghe
+        fetch(`/songs/listen/${songId}`, {
+            method: 'PATCH', // hoặc POST tùy backend bạn xử lý
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log("Cập nhật lượt nghe thành công:", data);
+            const elementListenSpan = document.querySelector(".singer-detail .inner-listen span");
+            elementListenSpan.innerHTML = `${data.listen} lượt nghe`;
+        })
+        .catch(err => {
+            console.error("Lỗi khi cập nhật lượt nghe:", err);
+        });
+    });
+    
 });
 
 

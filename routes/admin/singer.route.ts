@@ -15,4 +15,5 @@ router.post('/create',
     uploadCloud.uploadSingle,
     controller.createPost
 );
+
 export const singerRoutes: Router = router;

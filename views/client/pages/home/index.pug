@@ -1,3 +1,40 @@
 extends ../../layouts/default.pug 
+block styles 
+    link(rel="stylesheet", href="/css/home.css")
 block main
-    h1 home
+  .home
+    .artist-box
+      .artist-header
+        h2 Nghệ sĩ phổ biến
+        a(href="#") Hiện tất cả
+      .artist-list
+  
+        each artist in singer
+          .artist
+            .img
+              img(src=artist.avatar, alt=artist.fullName)
+            h3= artist.fullName
+            p Nghệ sĩ
+  
+    .suggest  
+      .goi-y
+        h2 Mới Phát Hành
+      .song-list
+        each song in songs
+  
+          .song-item
+            .song-item-left
+              .song-img.img-play
+                img(src=song.avatar, alt=song.singer data-id=song._id )
+                .inner-play
+                  <i class="fa-solid fa-play "></i>
+              .info
+                h2(class="title")
+                  a(href=`/songs/detail/${song.slug}` )  #{song.title}               
+                p(class="singer")
+                  a(href=`/singers/${song.singer.slug}` ) #{song.singer.fullName}
+            div(class=("heart "  + (song.isFavoriteSong?"active":"")) button-favorite=song._id)
+              <i class="fa-regular fa-heart"></i>
+  
+          
+      

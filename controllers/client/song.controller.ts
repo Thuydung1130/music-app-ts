@@ -29,7 +29,7 @@ export const list= async (req: Request, res: Response) => {
     //console.log(infoSinger);
     song["infoSinger"]=infoSinger
   }
-  //console.log(songs)
+  console.log(songs)
   res.render("client/pages/songs/list",{
     pageTitle: topic.title,
     songs:songs
@@ -43,7 +43,7 @@ export const detail= async (req: Request, res: Response) =>{
       slug:slugSong,
       status: "active",
       deleted:false
-    })
+    }).select("-audio")
    // console.log(song);
     const singer=await Singer.findOne({
       _id: song.singerId,
@@ -160,7 +160,8 @@ export const audio = async (req: Request, res: Response) =>{
   });
   //console.log("ok");
   res.json({
-    audio:song.audio
+    audio:song.audio,
+    id:song.id
   });
   // console.log("chay")
   // const song = await Song.findById(req.params.idSong); // từ MongoDB chẳng hạn

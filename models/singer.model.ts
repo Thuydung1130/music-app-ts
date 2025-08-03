@@ -8,7 +8,12 @@ const singerSchema = new mongoose.Schema(
         fullName: String,
         avatar: String,
         status: String,
-        slug: String,
+        slug: {
+            type: String,
+            slug: "fullName",
+            unique: true,
+            slugPaddingSize: 4
+        },
         deleted: {
             type: Boolean,
             default: false,

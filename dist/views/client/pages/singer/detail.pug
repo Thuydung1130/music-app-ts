@@ -1,0 +1,34 @@
+extends ../../layouts/default.pug 
+include ../../mixins/box-head.pug
+
+
+block styles
+  link(rel="stylesheet", href="/css/singer.css")
+block main
+    .detail-singer 
+        .header 
+            .head-background(style=`background-image: url('${singer.avatar}')`)
+            .bg-alpha
+            .head-content 
+                .avatar 
+                    img(src=singer.avatar, alt="")
+                .content 
+                    h1 #{singer.fullName} 
+                    p 298.178 người quan tâm
+        .goi-y
+            h2 Bài Hát Nổi Bật
+        .song-list 
+            each song in songs
+                .song-item
+                    .song-item-left
+                        .song-img.img-play
+                            img(src=song.avatar, alt="" data-id=song._id )
+                            .inner-play
+                                <i class="fa-solid fa-play "></i>
+                        .info
+                            h2(class="title")
+                                a(href=`/songs/detail/${song.slug}` )  #{song.title}               
+                            p(class="singer")
+                                a(href=`/singers/${singer.slug}` ) #{singer.fullName}
+                    div(class="heart" button-favorite=song.id)
+                        <i class="fa-regular fa-heart"></i>

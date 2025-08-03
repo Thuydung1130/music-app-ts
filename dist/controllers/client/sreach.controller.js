@@ -16,9 +16,14 @@ const result = async (req, res) => {
         const stringSlug = (0, convertToSlug_1.convertToSlug)(keyword);
         const stringSlugRegex = new RegExp(stringSlug, "i");
         const songs = await song_model_1.default.find({
-            $or: [
-                { title: keywordRegex },
-                { slug: stringSlugRegex }
+            $and: [
+                { deleted: false },
+                {
+                    $or: [
+                        { title: keywordRegex },
+                        { slug: stringSlugRegex }
+                    ]
+                }
             ]
         });
         for (const item of songs) {

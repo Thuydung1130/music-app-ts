@@ -27,6 +27,7 @@ const list = async (req, res) => {
         });
         song["infoSinger"] = infoSinger;
     }
+    console.log(songs);
     res.render("client/pages/songs/list", {
         pageTitle: topic.title,
         songs: songs
@@ -39,7 +40,7 @@ const detail = async (req, res) => {
         slug: slugSong,
         status: "active",
         deleted: false
-    });
+    }).select("-audio");
     const singer = await singer_model_1.default.findOne({
         _id: song.singerId,
         deleted: false
@@ -131,7 +132,8 @@ const audio = async (req, res) => {
         _id: idSong
     });
     res.json({
-        audio: song.audio
+        audio: song.audio,
+        id: song.id
     });
 };
 exports.audio = audio;

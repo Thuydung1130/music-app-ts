@@ -7,8 +7,8 @@ block styles
 block main
     .inner-song 
         .songBlock-1 
-            div(class="contentleft inner-songInfo")
-                div(class="song-img img" ) 
+            div(class="contentleft   inner-songInfo")
+                div(class="song-img img img-play" ) 
                     img(src=song.avatar data-id=song.id )
                     .inner-play
                         div(class="play play-img") 
@@ -21,7 +21,7 @@ block main
                     <i class="fa-solid fa-play"></i>
                     span PHÁT TẤT CẢ
                 .action 
-                    .heart 
+                    div(class=("inner-action inner-heart heart" + (song.isFavoriteSong?" active":"")) button-favorite=song.id)
                         <i class="fa-regular fa-heart"></i>
                     .other 
                         <i class="fa-solid fa-ellipsis"></i>
@@ -40,49 +40,49 @@ block main
                                     p 
                                         a(href="/") #{singer.fullName}
 
-                            span 05:05
+                            span(class="time-song") 05:05
 
 
-    .singer-detail
-        .container.my-3
-            .row
-                .col-12
-                    .inner-title #{song.title}
+    //- .singer-detail
+    //-     .container.my-3
+    //-         .row
+    //-             .col-12
+    //-                 .inner-title #{song.title}
 
-                    .inner-actions
-                        div(class="inner-action inner-time")
-                            i(class="fa-regular fa-clock")
-                            | 20/10/2023
-                        div(class="inner-action inner-singer")
-                            i(class="fa-solid fa-microphone-lines")
-                            | #{singer.fullName}
-                        div(class="inner-action inner-topic")
-                            i(class="fa-solid fa-music")
-                            | #{topic.title}
-                        div(class="inner-action inner-listen")
-                            i(class="fa-solid fa-headphones")
-                            span #{song.listen} lượt nghe
+    //-                 .inner-actions
+    //-                     div(class="inner-action inner-time")
+    //-                         i(class="fa-regular fa-clock")
+    //-                         | 20/10/2023
+    //-                     div(class="inner-action inner-singer")
+    //-                         i(class="fa-solid fa-microphone-lines")
+    //-                         | #{singer.fullName}
+    //-                     div(class="inner-action inner-topic")
+    //-                         i(class="fa-solid fa-music")
+    //-                         | #{topic.title}
+    //-                     div(class="inner-action inner-listen")
+    //-                         i(class="fa-solid fa-headphones")
+    //-                         span #{song.listen} lượt nghe
 
-                        div(class="inner-action inner-like" button-like=song.id)
-                            i(class="fa-regular fa-thumbs-up")
-                            span  #{song.like} thích
-                        div(class=("inner-action inner-heart" + (song.isFavoriteSong?" active":"")) button-favorite=song.id)
-                            i(class="fa-regular fa-heart")
-                            | Bài hát yêu thích
-                    .inner-play
-                        .inner-avatar
-                            img(src=song.avatar)
-                        .inner-audio
-                            //- audio(controls)
-                            //-     source(src="https://backend.daca.vn/assets/audios/cat-doi-noi-sau.mp3")
-                            div(id="aplayer" data-song=song data-singer=singer)
+    //-                     div(class="inner-action inner-like" button-like=song.id)
+    //-                         i(class="fa-regular fa-thumbs-up")
+    //-                         span  #{song.like} thích
+    //-                     div(class=("inner-action inner-heart" + (song.isFavoriteSong?" active":"")) button-favorite=song.id)
+    //-                         i(class="fa-regular fa-heart")
+    //-                         | Bài hát yêu thích
+    //-                 .inner-play
+    //-                     .inner-avatar
+    //-                         img(src=song.avatar)
+    //-                     .inner-audio
+    //-                         //- audio(controls)
+    //-                         //-     source(src="https://backend.daca.vn/assets/audios/cat-doi-noi-sau.mp3")
+    //-                         div(id="aplayer" data-song=song data-singer=singer)
 
-                    .inner-desc
-                        .inner-label Mô tả
-                        .inner-text
-                            | !{song.description}
+    //-                 .inner-desc
+    //-                     .inner-label Mô tả
+    //-                     .inner-text
+    //-                         | !{song.description}
                     
-                    .inner-desc
-                        .inner-label Lời bài hát
-                        .inner-text
-                            | !{song.lyrics}
+    //-                 .inner-desc
+    //-                     .inner-label Lời bài hát
+    //-                     .inner-text
+    //-                         | !{song.lyrics}

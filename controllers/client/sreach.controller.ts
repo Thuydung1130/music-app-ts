@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Song from "../../models/song.model";
 import Singer from "../../models/singer.model";
 import { convertToSlug } from "../../helpers/convertToSlug";
+import { console } from "inspector";
 
 //[GEt] /search/:type
 export const result = async (req: Request, res: Response) => {
@@ -15,9 +16,14 @@ export const result = async (req: Request, res: Response) => {
         const stringSlug = convertToSlug(keyword);
         const stringSlugRegex = new RegExp(stringSlug, "i");
         const songs = await Song.find({
-            $or: [
-                { title: keywordRegex },
-                { slug: stringSlugRegex }
+            $and: [
+                { deleted: false },
+                {
+                    $or: [
+                        { title: keywordRegex },
+                        { slug: stringSlugRegex }
+                    ]
+                }
             ]
         })
         for (const item of songs) {
@@ -26,17 +32,18 @@ export const result = async (req: Request, res: Response) => {
             });
             //item["infoSinger"] = infoSinger
             newSongs.push({
-                id:item.id,
-                title:item.title,
+                id: item.id,
+                title: item.title,
                 avatar: item.avatar,
                 like: item.like,
-                slug:item.slug,
-                infoSinger:{
+                slug: item.slug,
+                infoSinger: {
                     fullName: infoSinger.fullName
                 }
             })
         }
         //newSongs = songs;
+        //console.log(songs)
     }
     switch (type) {
         case "result":

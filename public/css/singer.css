@@ -1,0 +1,77 @@
+
+.detail-singer{
+    width: 100%;
+}
+.detail-singer .header{
+    height: 300px;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+.detail-singer .head-background{
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: cover;
+    filter: blur(50px);
+        position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+}
+.detail-singer .bg-alpha{
+    background-color: rgba(249,219,219,0.8);
+    height: 100%;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+}
+.detail-singer .head-content{
+    z-index: 2;
+    margin-top: 130px;
+    padding: 0 60px;
+    
+    display: flex;
+    align-items: center;
+}
+.detail-singer .avatar{
+    height: 140px;
+    width: 140px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.detail-singer .avatar img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.detail-singer .head-content .content{
+    margin-left: 20px;
+    color: #fff;
+}
+.detail-singer .head-content .content h1{
+    
+    font-size: 70px;
+    font-weight: 600;
+}
+.detail-singer .head-content .content p{
+    
+    font-size: 15px;
+}
+.detail-singer .song-list{
+    display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 3 cột */
+  gap: 0px 40px;
+  padding: 0 60px;
+}
+.detail-singer .goi-y{
+    padding-top: 40px;
+  padding-left: 55px;
+}
