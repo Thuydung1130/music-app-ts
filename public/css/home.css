@@ -58,7 +58,15 @@
   margin: 0;
   color: var(--text-color);
 }
+.artist h3 a{
+  color: var(--text-color);
 
+
+}
+.artist h3 a:hover{
+  text-decoration: none;
+  color: var(--main-color-3);
+}
 .artist p {
   font-size: 12px;
   color: #888283;
@@ -85,3 +93,110 @@
 
 
 /* end moi phat hanh */
+
+
+/* bxh nhac */
+.bxh {
+  
+  color: var(--text-color);
+  margin-top: 30px;
+  
+}
+
+.bxh h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.bxh-container {
+  display: flex;
+  justify-content: space-between;
+  
+}
+.bxh-container a{
+  text-decoration: none;
+}
+.song-card {
+  background: var(--sider-color);
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  width: 375px;
+  padding: 15px;
+  transition: transform 0.3s;
+  display: flex;
+
+}
+
+.song-card:hover {
+  transform: translateY(-5px);
+}
+.song-card .song-card-img{
+  width: 120px;
+  height: auto;
+  aspect-ratio: 1/1;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.song-card img {
+  width: 100%;
+  height: 100%;
+  
+  object-fit: cover;
+   transform: scale(1); /* Trạng thái ban đầu: không zoom */
+  transition: transform 0.5s ease-in-out; /* Tạo hiệu ứng chuyển động mượt mà */
+  transform-origin: center center; /* Đảm bảo ảnh zoom từ chính giữa */
+}
+
+.img:hover img {
+  transform: scale(1.1); /* Zoom ảnh lên 110% (hoặc giá trị khác tùy ý) */
+}
+
+.song-card-content{
+  margin-left: 10px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+}
+.bxh .song-title {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 0;
+}
+.bxh .song-title a{
+  color: var(--text-color);
+}
+.bxh .song-artist {
+  font-size: 14px;
+ 
+  margin-bottom: 10px;
+}
+.bxh .song-artist a{
+  color: #777;
+}
+.bxh .song-title a:hover{
+  color: var(--main-color-3);
+}
+.bxh .song-artist a:hover{
+  color: var(--main-color-3);
+}
+.song-card-content .song-top{
+  display: flex;
+  justify-content: space-between;
+  align-items:center ;
+}
+.song-rank {
+  font-size: 30px;
+  font-weight: bold;
+  color: #d38ad2;
+  margin-bottom: 5px;
+}
+
+.song-date {
+  font-size: 13px;
+  color: #999;
+}
+
+/* bxh nhac */

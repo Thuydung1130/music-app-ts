@@ -5,11 +5,18 @@ import Singer from "../../models/singer.model";
 import paginationHelper from "../../helpers/pagination";
 import FavoriteSong from "../../models/favorite-song.model";
 export const index = async (req: Request, res: Response) => {
-  console.log("ok")
+  //console.log("ok")
   //sort
   let sort = {};
   sort["createdAt"] = "desc";
   //sort
+
+  //sort topsong
+  let sortTopSong = {};
+  sortTopSong["listen"] = "desc";
+  //sort topsong
+
+
   const songs = await Song.find({
 
     status: "active",
@@ -17,16 +24,11 @@ export const index = async (req: Request, res: Response) => {
   }).sort(sort).limit(9).select("title avatar id singerId slug ").lean()
 
 
-  // const song = await Song.find({
-
-  //   status: "active",
-  //   deleted: false
-  // }).select("-audio")
-  // console.log(song);
+  
   const singer = await Singer.find({
     status: "active",
     deleted: false
-  }).select("fullName avatar").limit(6)
+  }).select("fullName avatar slug").limit(6)
 
   for (const song of songs) {
     const infoSinger = await Singer.findOne({
@@ -40,13 +42,37 @@ export const index = async (req: Request, res: Response) => {
     })
     song["isFavoriteSong"] = favoriteSong ? true : false;
   }
-  console.log(songs)
+  //console.log(songs)
   const topic = await Topic.find({
 
     deleted: false
   }).select("title")
+
+
+  //top-song
+  const topSongs = await Song.find({
+
+    status: "active",
+    deleted: false,
+
+  }).sort(sortTopSong).limit(3).select("title listen avatar id singerId slug ").lean();
+  //top-song
+
+  for (const topSong of topSongs) {
+    const infoSinger = await Singer.findOne({
+      _id: topSong.singerId
+    }).select("fullName slug")
+    topSong["singer"] = infoSinger
+    //console.log(song["singer"])
+
+   
+  }
+
+  //console.log(topSongs);
   res.render("client/pages/home/index", {
     pageTitle: "Trang chủ",
+
+    topSongs:topSongs,
     songs: songs,
     singer: singer,
     topic: topic

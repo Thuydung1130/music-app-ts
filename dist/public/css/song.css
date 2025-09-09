@@ -40,21 +40,9 @@
 .img:hover img {
   transform: scale(1.1); /* Zoom ảnh lên 110% (hoặc giá trị khác tùy ý) */
 }
-.inner-song .inner-play {
-  color: #fff;
-  
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: -1;
-}
-.inner-song .inner-play .play-img{
-  border-color: #fff;
-}
-.img:hover .inner-play {
-  z-index: 1;
-}
+
+
+
 .inner-song .inner-play .play{
   z-index: 0;
 }
@@ -189,4 +177,22 @@
 
 .right-item .time-song{
   font-size: 12px;
+}
+
+.contenRight .info-box{
+  margin-top: 20px;
+  color: var(--text-color);
+}
+.contenRight .info-box h4{
+  font-size: 15px;
+  font-weight: 600;
+}
+.contenRight .info-box ul{
+  font-size: 13px;
+}
+.contenRight .info-box ul .label{
+  color: #8B878B;
+}
+.contenRight .info-box ul .value{
+  margin-left: 10px;
 }

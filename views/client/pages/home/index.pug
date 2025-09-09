@@ -11,10 +11,12 @@ block main
   
         each artist in singer
           .artist
-            .img
-              img(src=artist.avatar, alt=artist.fullName)
-            h3= artist.fullName
-            p Nghệ sĩ
+            a(href=`/singers/${artist.slug}`)
+              .img
+                img(src=artist.avatar, alt=artist.fullName)
+              h3 
+                a(href=`/singers/${artist.slug}` ) #{artist.fullName}
+              p Nghệ sĩ
   
     .suggest  
       .goi-y
@@ -35,6 +37,27 @@ block main
                   a(href=`/singers/${song.singer.slug}` ) #{song.singer.fullName}
             div(class=("heart "  + (song.isFavoriteSong?"active":"")) button-favorite=song._id)
               <i class="fa-regular fa-heart"></i>
-  
+
+    .bxh
+      h2 BXH Nhạc Mới
+      .bxh-container
+        each topSong,index in topSongs
           
-      
+          .song-card
+            .song-card-img.song-img.img-play.img
+              img(src=topSong.avatar, alt=topSong.title data-id=topSong._id)
+              .inner-play
+                div(class="play play-img") 
+                    <i class="fa-solid fa-play "></i>
+            .song-card-content
+              .song-info
+                h2.song-title 
+                  a(href=`/songs/detail/${topSong.slug}` )  #{topSong.title} 
+                p.song-artist 
+                  a(href=`/singers/${topSong.singer.slug}` ) #{topSong.singer.fullName}
+              .song-top
+                .song-rank ##{index+1}
+                .song-date #{topSong.listen} Lượt Nghe
+
+        
+

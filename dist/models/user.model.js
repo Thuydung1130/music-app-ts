@@ -32,24 +32,33 @@ var __importStar = (this && this.__importStar) || (function () {
         return result;
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
-const authMiddleware = __importStar(require("../../middlewares/client/auth.middleware"));
-const user_middleware_1 = require("../../middlewares/client/user.middleware");
-const topic_route_1 = require("./topic.route");
-const song_route_1 = require("./song.route");
-const favorite_song_route_1 = require("./favorite-song.route");
-const sreach_route_1 = require("./sreach.route");
-const home_route_1 = require("./home.route");
-const singer_route_1 = require("./singer.route");
-const user_route_1 = require("./user.route");
-const clientRoutes = (app) => {
-    app.use(user_middleware_1.infoUser);
-    app.use("/singers", singer_route_1.singerRoutes);
-    app.use("/user", user_route_1.userRoutes);
-    app.use("/topics", authMiddleware.requireAuth, topic_route_1.topicRoutes);
-    app.use(`/songs`, song_route_1.songRoutes);
-    app.use("/favorite-songs", authMiddleware.requireAuth, favorite_song_route_1.favoriteSongRoutes);
-    app.use("/sreach", sreach_route_1.sreachRoutes);
-    app.use("/", home_route_1.homeRoutes);
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-exports.default = clientRoutes;
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose_1 = __importDefault(require("mongoose"));
+const generate = __importStar(require("../helpers/generate"));
+const userSchema = new mongoose_1.default.Schema({
+    fullName: String,
+    email: String,
+    password: String,
+    tokenUser: {
+        type: String,
+        default: generate.generateRamdonString(20)
+    },
+    phone: String,
+    avatar: String,
+    status: {
+        type: String,
+        default: "active"
+    },
+    delete: {
+        type: Boolean,
+        default: false
+    },
+    deletedAt: Date
+}, {
+    timestamps: true
+});
+const User = mongoose_1.default.model("user", userSchema, "users");
+exports.default = User;

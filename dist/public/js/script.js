@@ -17,10 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     };
-   
+
     document.body.addEventListener('click', async (e) => {
         const link = e.target.closest('a');
-        
+        if (!link) return;
+
+
+        if (!link || link.classList.contains('no-ajax')) return; // <-- bỏ qua
         // Chỉ xử lý nếu là link nội bộ
         if (link && link.href.startsWith(window.location.origin)) {
             // Nếu là file .mp3 hoặc .jpg thì không can thiệp
@@ -31,6 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const res = await fetch(link.href);
                 const html = await res.text();
+
+                // ⚡️ Nếu server trả về login page thì ép redirect
+                if (res.url.includes("/user/login") || html.includes("form-login")) {
+                    window.location.href = "/user/login";
+                    return;
+                }
 
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, 'text/html');
@@ -59,13 +68,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         loadStylesheets(doc);
         const newContent = doc.querySelector('.inner-main');
-        
+
         if (newContent) {
             document.querySelector('.inner-main').innerHTML = newContent.innerHTML;
             attachSongClickEvents();
             console.log("ok")
             attachLikeAndFavoriteEvents();
-             
+
         }
     });
 });
@@ -221,7 +230,7 @@ function attachSongClickEvents() {
             const imgsrc = Img.getAttribute("src");
 
             const audio = document.getElementById('audio-player');
-            
+
             const thumbnail = document.getElementById('audio-thumbnail');
             const singTitle = document.querySelector(".sing .sing-title .main-title");
             const singAuthor = document.querySelector(".sing .sing-title .author a");
@@ -229,6 +238,10 @@ function attachSongClickEvents() {
             thumbnail.src = imgsrc;
             singTitle.textContent = title.textContent;
             singAuthor.textContent = author.textContent;
+
+
+
+
 
             const link = `/songs/${songId}`;
             const option = { method: "PATCH" };
@@ -238,10 +251,14 @@ function attachSongClickEvents() {
                 .then(data => {
                     if (audio) {
                         audio.src = data.audio;
-                        audio.setAttribute('data-id', data.id);                       
+                        audio.setAttribute('data-id', data.id);
                         audio.load();
                         audio.addEventListener('canplay', () => {
                             audio.play();
+
+                            const playBtn = document.querySelector('.sing-play .play i');
+                            playBtn.classList.remove('fa-play');
+                            playBtn.classList.add('fa-pause');
                         }, { once: true });
                     }
                 });
@@ -293,6 +310,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //play-radio
 
+
+
+    const playBtn = document.querySelector('.sing-play .play i');
+
+    // Xử lý khi bấm play/pause
+    playBtn.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.play();
+            playBtn.classList.remove('fa-play');
+            playBtn.classList.add('fa-pause');
+        } else {
+            audio.pause();
+            playBtn.classList.remove('fa-pause');
+            playBtn.classList.add('fa-play');
+        }
+    });
+
+
     // Khi bài hát kết thúc
     audio.addEventListener('ended', () => {
         const songId = audio.getAttribute('data-id'); // Giả sử bạn gán sẵn ID bài hát
@@ -304,17 +339,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 'Content-Type': 'application/json',
             },
         })
-        .then(res => res.json())
-        .then(data => {
-            console.log("Cập nhật lượt nghe thành công:", data);
-            const elementListenSpan = document.querySelector(".singer-detail .inner-listen span");
-            elementListenSpan.innerHTML = `${data.listen} lượt nghe`;
-        })
-        .catch(err => {
-            console.error("Lỗi khi cập nhật lượt nghe:", err);
-        });
+            .then(res => res.json())
+            .then(data => {
+                console.log("Cập nhật lượt nghe thành công:", data);
+                const elementListenSpan = document.querySelector(".singer-detail .inner-listen span");
+                elementListenSpan.innerHTML = `${data.listen} lượt nghe`;
+            })
+            .catch(err => {
+                console.error("Lỗi khi cập nhật lượt nghe:", err);
+            });
     });
-    
+
 });
 
 

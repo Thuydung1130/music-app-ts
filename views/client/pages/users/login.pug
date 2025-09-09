@@ -1,0 +1,76 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title #{pageTitle}
+    link(rel="stylesheet" href="/css/login.css")
+    //link(href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet")
+  body
+    //- credits to the writter @leonam-silva-de-souza
+    .container
+      .form-box.login
+        form(
+          action="/user/login"
+          method="POST"
+        )
+          h1 Login
+          .input-box
+            input(type="email" placeholder="Email" name="email" id="email" required)
+            i.bx.bxs-user
+          .input-box
+            input(type="password" placeholder="Password" name="password" id="password" required)
+            i.bx.bxs-lock-alt
+          .forgot-link
+            a(href="#") Forgot Password?
+          button.btn(type="submit") Login
+          p or login with social platforms
+          .social-icons
+            a(href="#")
+              i.bx.bxl-google
+            a(href="#")
+              i.bx.bxl-facebook
+            a(href="#")
+              i.bx.bxl-github
+            a(href="#")
+              i.bx.bxl-linkedin
+
+      .form-box.register
+        form(
+          action="/user/register"
+          method="POST"
+        )
+          h1 Registration
+          .input-box
+            input(type="text" placeholder="Username" name="fullName" id="fullName" required)
+            i.bx.bxs-user
+          .input-box
+            input(type="email" placeholder="Email" name="email" id="email" required)
+            i.bx.bxs-envelope
+          .input-box
+            input(type="password" placeholder="Password" name="password" id="password" required)
+            i.bx.bxs-lock-alt
+          button.btn(type="submit") Register
+          p or register with social platforms
+          .social-icons
+            a(href="#")
+              i.bx.bxl-google
+            a(href="#")
+              i.bx.bxl-facebook
+            a(href="#")
+              i.bx.bxl-github
+            a(href="#")
+              i.bx.bxl-linkedin
+
+      .toggle-box
+        .toggle-panel.toggle-left
+          h1 Hello, Welcome!
+          p Don't have an account?
+          button.btn.register-btn Register
+
+        .toggle-panel.toggle-right
+          h1 Welcome Back!
+          p Already have an account?
+          button.btn.login-btn Login
+
+    script(src="/js/login.js")

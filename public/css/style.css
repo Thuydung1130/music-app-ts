@@ -127,6 +127,10 @@ body{
 .header .inner-menu > ul > li{
     margin-left: 20px;
 }
+.header .box-login{
+    
+    z-index: 99; /* cao hơn .inner-suggest (z-index:1) */
+}
 /* Header */
 
 /* Footer */
@@ -479,6 +483,9 @@ body .sing{
   background-color: var(--heard-hover);
   
 }
+.song-item .heart i:hover{
+    color: #fff;
+}
 /* hover-img */
 .img-play{
     position: relative;
@@ -496,7 +503,7 @@ body .sing{
   
 }
 .img-play:hover::before{
-  z-index: 1;
+  z-index: 2;
 }
 .inner-play {
   color: #fff;
@@ -506,6 +513,12 @@ body .sing{
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: -1;
+}
+.inner-play .play-img{
+  border-color: #fff;
+}
+.img:hover .inner-play {
+  z-index: 2;
 }
 .song-item:hover {
     .inner-play{
@@ -600,3 +613,5 @@ body .sing{
 }
 
 /* End box-search */
+
+
